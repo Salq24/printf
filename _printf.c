@@ -13,31 +13,39 @@ int _printf(const char *format, ...)
 {
 	int prnt = 0;
 	va_list arg_list;
+	va_start(arg_list, format);
 
 	if (format == NULL)
 		return (-1);
-	va_start(arg_list, format);
-	while (*format != '\0')
+
+	while (*format)
 	{
-		if (*format == '%')
+		if (*format == '%' && (++format))
 		{
-		format++;
 		if (*format == 'c')
 		{
-			_putchar(va_arg(arg_list, int));
+		       	_putchar((char)(va_arg(arg_list, int));
 			prnt++;
 		}
 		else if (*format == 's')
-			{
-				char *s = va_arg(arg_list, char*);
-				int len_of_s = 0;
+		{
+		char *s = va_arg(arg_list, char*);
+		while (s[len_of_s] != '\0')
+		{
+		_putchar(*s++);
+		prnt++;
+		}
+		}
+		else if (*format == '%')
+		{
+			_putchar('%');
+			prnt++;
 
-				while (s[len_of_s] != '\0')
-					len_of_s++;
-
-				write(1, s, len_of_s);
-				prnt += len_of_s;
-			}
+		}
+		else
+		{
+	       _putchar(*format);	       
+		prnt++;
 		}
 		format++;
 	}

@@ -19,22 +19,15 @@ int _printf(const char *format, ...)
 	va_start(arg_list, format);
 	while (*format != '\0')
 	{
-		if (*format != '%')
+		if (*format == '%')
 		{
-			write(1, format, 1);
-		}
 		format++;
-	}
-		else
+		if (*format == 'c')
 		{
-			if (*format == '\0')
-				break;
-			if (*format == '%')
-			{
-				write(1, format, 1);
-				prnt++;
-			}
-			else if (*format == 's')
+			_putchar(va_arg(arg_list, int));
+			prnt++;
+		}
+		else if (*format == 's')
 			{
 				char *s = va_arg(arg_list, char*);
 				int len_of_s = 0;
@@ -44,11 +37,6 @@ int _printf(const char *format, ...)
 
 				write(1, s, len_of_s);
 				prnt += len_of_s;
-			}
-			else if (*format == 'c')
-			{
-				_putchar( va_arg(arg_list, int));
-				prnt++;
 			}
 		}
 		format++;

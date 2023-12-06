@@ -15,34 +15,35 @@ int _printf(const char *format, ...)
 	va_list arg_list;
 	va_start(arg_list, format);
 
-	if (format == NULL)
-		return (-1);
-
 	while (*format)
 	{
 		if (*format == '%' && (++format))
 		{
-		if (*format == 'c')
-		{
-		       	_putchar((char)(va_arg(arg_list, int));
+			switch (*format)
+			{
+				case 'c':
+		       	_putchar((char)va_arg(arg_list, int));
 			prnt++;
-		}
-		else if (*format == 's')
-		{
-		char *s = va_arg(arg_list, char*);
-		while (s[len_of_s] != '\0')
-		{
-		_putchar(*s++);
-		prnt++;
-		}
-		}
-		else if (*format == '%')
-		{
+			break;
+			case 's':
+			{
+			char *s = va_arg(arg_list, char*);
+			while (*s)
+			{
+			_putchar(*s++);
+			prnt++;
+			}
+			break;
+			}
+			case '%':
 			_putchar('%');
 			prnt++;
-
-		}
-		else
+			break;
+			default:
+			break;
+			}
+			}
+	else
 		{
 	       _putchar(*format);	       
 		prnt++;
